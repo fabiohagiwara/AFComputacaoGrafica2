@@ -56,19 +56,6 @@
             var camera1 = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(0, 10, 0), scene);
             scene.activeCamera = camera1;
             scene.activeCamera.attachControl(canvas, true);
-
-            //Criar background
-            var fundo = new BABYLON.MeshBuilder.CreateBox("fundo",{width:30,height:60,depth:0.2},scene);
-            var fundoMaterial = new BABYLON.StandardMaterial("fundoMat",scene);
-            fundoMaterial.diffuseTexture = new BABYLON.Texture("textures/wood.jpg",scene);
-            fundo.material = fundoMaterial;
-            fundo.physicsImpostor = new BABYLON.PhysicsImpostor(fundo, BABYLON
-            .PhysicsImpostor
-            .BoxImpostor,{
-                mass:0,
-                restitution:0.1,
-                friction: 0.1
-            },scene);
         
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -92,7 +79,7 @@
             var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
             var instructions = new BABYLON.GUI.TextBlock();
             instructions.text = "Fábio Kenji Hagiwara 180106\nRenê Nascimento Corrêa 188086";
-            instructions.color = "white";
+            instructions.color = "black";
             instructions.fontSize = 16;
             instructions.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
             instructions.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
@@ -101,7 +88,30 @@
             //ativa físicas
             scene.enablePhysics();
 
+            spawnBackground();
+            spawnLaterais();
             spawnPlataformas();
+            spawnWindmill();
+            spawnMaze();
+            
+            //config Maze
+            var coordx = [-5,-7,-14,-9,-11,-9,-7,-5,-10,-6,-3.5,-12,-8,-6,-14.5,-12.5,-8,-7,-5,-13];
+            var coordy = [-8,-14,-5,-9,-13,-12,-7,-10,-16,-14,-12,-10,-16,-8,-9,-11,-15,-12,-13,-7];
+            for(var i=1;i<=20;i++){
+                var pinoAll = scene.getMeshById("pino"+i);
+                pinoAll.rotation.x = 1.55;
+                pinoAll.position.z = 1;
+                pinoAll.position.x = coordx[i-1];
+                pinoAll.position.y = coordy[i-1];
+                pinoAll.physicsImpostor = new BABYLON.PhysicsImpostor(pinoAll, BABYLON
+                .PhysicsImpostor
+                .CylinderImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0
+            },scene);
+            }
+
             spawnDominos();
             spawnBolinhas();
         
@@ -171,14 +181,14 @@
             .BoxImpostor,{
                 mass:0,
                 restitution:0.1,
-                friction: 0.1
+                friction: 0.3
             },scene);
 
             var chao3 = new BABYLON.MeshBuilder.CreateBox("chao3",{height:0.2,width:3,depth:1.5},scene);
             chao3.position.x = 6.7;
             chao3.position.y = 22;
             chao3.position.z = 1;
-            chao3.rotation.z = -0.3;
+            chao3.rotation.z = -0.2;
             chao3.physicsImpostor = new BABYLON.PhysicsImpostor(chao3, BABYLON
             .PhysicsImpostor
             .BoxImpostor,{
@@ -186,6 +196,256 @@
                 restitution:0.1,
                 friction: 0.1
             },scene);
+
+            var chao4 = new BABYLON.MeshBuilder.CreateBox("chao4",{height:0.2,width:6,depth:1.5},scene);
+            chao4.position.x = -8;
+            chao4.position.y = 17;
+            chao4.position.z = 1;
+            chao4.rotation.z = 0.2;
+            chao4.physicsImpostor = new BABYLON.PhysicsImpostor(chao4, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var chao5 = new BABYLON.MeshBuilder.CreateBox("chao5",{height:6,width:0.2,depth:1.5},scene);
+            chao5.position.x = -7;
+            chao5.position.y = 7;
+            chao5.position.z = 1;
+            chao5.physicsImpostor = new BABYLON.PhysicsImpostor(chao5, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var chao6 = new BABYLON.MeshBuilder.CreateBox("chao6",{height:0.2,width:5,depth:1.5},scene);
+            chao6.position.x = -10;
+            chao6.position.y = 3;
+            chao6.position.z = 1;
+            chao6.rotation.z = 0.2;
+            chao6.physicsImpostor = new BABYLON.PhysicsImpostor(chao6, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var chao7 = new BABYLON.MeshBuilder.CreateBox("chao7",{height:0.2,width:5,depth:1.5},scene);
+            chao7.position.x = -12.3;
+            chao7.position.y = 0;
+            chao7.position.z = 1;
+            chao7.rotation.z = -0.2;
+            chao7.physicsImpostor = new BABYLON.PhysicsImpostor(chao7, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var chao8 = new BABYLON.MeshBuilder.CreateBox("chao8",{height:0.2,width:15,depth:1.5},scene);
+            chao8.position.x = -3;
+            chao8.position.y = -10;
+            chao8.position.z = 1;
+            chao8.rotation.z = 1.55;
+            chao8.physicsImpostor = new BABYLON.PhysicsImpostor(chao8, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var chao9 = new BABYLON.MeshBuilder.CreateBox("chao9",{height:0.2,width:15,depth:1.5},scene);
+            chao9.position.x = -7.5;
+            chao9.position.y = -19;
+            chao9.position.z = 1;
+            chao9.rotation.z = -0.2;
+            chao9.physicsImpostor = new BABYLON.PhysicsImpostor(chao9, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+            
+            var final1 = new BABYLON.MeshBuilder.CreateBox("final1",{height:0.2,width:15,depth:1.5},scene);
+            final1.position.x = 7.5;
+            final1.position.y = -24;
+            final1.position.z = 1;
+            final1.rotation.z = 0.1;
+            final1.physicsImpostor = new BABYLON.PhysicsImpostor(final1, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var final2 = new BABYLON.MeshBuilder.CreateBox("final2",{height:0.2,width:10,depth:1.5},scene);
+            final2.position.x = -6.2;
+            final2.position.y = -25.5;
+            final2.position.z = 1;
+            final2.rotation.z = 0.1;
+            final2.physicsImpostor = new BABYLON.PhysicsImpostor(final2, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var buraco1 = new BABYLON.MeshBuilder.CreateBox("buraco1",{height:0.2,width:1.3,depth:1.5},scene);
+            buraco1.position.x = 0.3;
+            buraco1.position.y = -25.5;
+            buraco1.position.z = 1;
+            buraco1.rotation.z = -1.45;
+            buraco1.physicsImpostor = new BABYLON.PhysicsImpostor(buraco1, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var buraco2 = new BABYLON.MeshBuilder.CreateBox("buraco2",{height:0.2,width:1.3,depth:1.5},scene);
+            buraco2.position.x = -1.3;
+            buraco2.position.y = -25.5;
+            buraco2.position.z = 1;
+            buraco2.rotation.z = -1.45;
+            buraco2.physicsImpostor = new BABYLON.PhysicsImpostor(buraco2, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+            
+            var bottom = new BABYLON.MeshBuilder.CreateBox("bottom",{height:0.2,width:1.2,depth:1.5},scene);
+            bottom.position.x = -0.4;
+            bottom.position.y = -26;
+            bottom.position.z = 1;
+            bottom.rotation.z = 0.1;
+            bottom.physicsImpostor = new BABYLON.PhysicsImpostor(bottom, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.2
+            },scene);
+
+            var final = new BABYLON.MeshBuilder.CreateBox("final",{height:0.2,width:4,depth:1.5},scene);
+            final.position.x = -13;
+            final.position.y = -26.5;
+            final.position.z = 1;
+            final.physicsImpostor = new BABYLON.PhysicsImpostor(final, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 1
+            },scene);
+        }
+
+        const spawnWindmill = function(){
+            
+            var windmill = new BABYLON.Mesh("windmill",scene);
+            
+            var pa13 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1.5},scene);
+            var pa2 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:2.3,depth:1.5},scene);
+            var pa4 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1.5},scene);
+
+            pa2.position.y = 1.35;
+            pa2.rotation.z = 1.55;
+
+            pa4.position.y = -1.35;
+            pa4.position.x = -0.05;
+            pa4.rotation.z = 1.55;
+
+            pa13.physicsImpostor = new BABYLON.PhysicsImpostor(pa13, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            pa2.physicsImpostor = new BABYLON.PhysicsImpostor(pa2, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            pa4.physicsImpostor = new BABYLON.PhysicsImpostor(pa4, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+
+            windmill.addChild(pa13);
+            windmill.addChild(pa2);
+            windmill.addChild(pa4);
+
+            windmill.position.x = 10;
+            windmill.position.y = 18;
+            windmill.position.z = 1;
+
+            var windmill2 = new BABYLON.Mesh("windmill2",scene);
+            
+            var pa132 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1.5},scene);
+            var pa22 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:2.3,depth:1.5},scene);
+            var pa42 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1.5},scene);
+
+            pa22.position.y = 1.35;
+            pa22.rotation.z = 1.55;
+
+            pa42.position.y = -1.35;
+            pa42.position.x = -0.05;
+            pa42.rotation.z = 1.55;
+
+            pa132.physicsImpostor = new BABYLON.PhysicsImpostor(pa132, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.3
+            },scene);
+
+            pa22.physicsImpostor = new BABYLON.PhysicsImpostor(pa22, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.3
+            },scene);
+
+            pa42.physicsImpostor = new BABYLON.PhysicsImpostor(pa42, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.3
+            },scene);
+
+
+            windmill2.addChild(pa132);
+            windmill2.addChild(pa22);
+            windmill2.addChild(pa42);
+
+            windmill2.position.x = -12.5;
+            windmill2.position.y = 12;
+            windmill2.position.z = 1;
+            
         }
 
         const spawnBolinhas = function(){
@@ -228,6 +488,85 @@
             
         }
 
+        const spawnLaterais = function(){
+
+            var latEsq = new BABYLON.MeshBuilder.CreateBox("latesq",{width:0.2,height:60,depth:1.5},scene);
+            var latDir = new BABYLON.MeshBuilder.CreateBox("latdir",{width:0.2,height:60,depth:1.5},scene);
+
+            latEsq.position.z = latDir.position.z = 1;
+            latEsq.position.x = 15.2;
+            latDir.position.x = -15.2;
+
+            latEsq.physicsImpostor = new BABYLON.PhysicsImpostor(latEsq, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+            latDir.physicsImpostor = new BABYLON.PhysicsImpostor(latDir, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+        }
+        
+        const spawnBackground = function(){
+
+            var fundo = new BABYLON.MeshBuilder.CreateBox("fundo",{width:30,height:60,depth:0.2},scene);
+            fundo.position.z = -0.3;
+            var fundoMaterial = new BABYLON.StandardMaterial("fundoMat",scene);
+            fundoMaterial.diffuseTexture = new BABYLON.Texture("textures/wood.jpg",scene);
+            fundo.material = fundoMaterial;
+            fundo.physicsImpostor = new BABYLON.PhysicsImpostor(fundo, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var frente = new BABYLON.MeshBuilder.CreateBox("frente",{width:30,height:60,depth:0.2},scene);
+            frente.position.z = 2.1;
+            var frenteMaterial = new BABYLON.StandardMaterial("frenteMat",scene);
+            frenteMaterial.alpha = 0;
+            frente.material = frenteMaterial;
+            frente.physicsImpostor = new BABYLON.PhysicsImpostor(frente, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+        }
+
+        const spawnMaze = function(){
+
+            var pino1 = new BABYLON.MeshBuilder.CreateCylinder("pino1",{diameter:1, height:1.5},scene);
+            var pino2 = new BABYLON.MeshBuilder.CreateCylinder("pino2",{diameter:1, height:1.5},scene);
+            var pino3 = new BABYLON.MeshBuilder.CreateCylinder("pino3",{diameter:1, height:1.5},scene);
+            var pino4 = new BABYLON.MeshBuilder.CreateCylinder("pino4",{diameter:1, height:1.5},scene);
+            var pino5 = new BABYLON.MeshBuilder.CreateCylinder("pino5",{diameter:1, height:1.5},scene);
+            var pino6 = new BABYLON.MeshBuilder.CreateCylinder("pino6",{diameter:1, height:1.5},scene);
+            var pino7 = new BABYLON.MeshBuilder.CreateCylinder("pino7",{diameter:1, height:1.5},scene);
+            var pino8 = new BABYLON.MeshBuilder.CreateCylinder("pino8",{diameter:1, height:1.5},scene);
+            var pino9 = new BABYLON.MeshBuilder.CreateCylinder("pino9",{diameter:1, height:1.5},scene);
+            var pino10 = new BABYLON.MeshBuilder.CreateCylinder("pino10",{diameter:1, height:1.5},scene);
+            var pino11 = new BABYLON.MeshBuilder.CreateCylinder("pino11",{diameter:1, height:1.5},scene);
+            var pino12 = new BABYLON.MeshBuilder.CreateCylinder("pino12",{diameter:1, height:1.5},scene);
+            var pino13 = new BABYLON.MeshBuilder.CreateCylinder("pino13",{diameter:1, height:1.5},scene);
+            var pino14 = new BABYLON.MeshBuilder.CreateCylinder("pino14",{diameter:1, height:1.5},scene);
+            var pino15 = new BABYLON.MeshBuilder.CreateCylinder("pino15",{diameter:1, height:1.5},scene)
+            var pino16 = new BABYLON.MeshBuilder.CreateCylinder("pino16",{diameter:1, height:1.5},scene);
+            var pino17 = new BABYLON.MeshBuilder.CreateCylinder("pino17",{diameter:1, height:1.5},scene);
+            var pino18 = new BABYLON.MeshBuilder.CreateCylinder("pino18",{diameter:1, height:1.5},scene);
+            var pino19 = new BABYLON.MeshBuilder.CreateCylinder("pino19",{diameter:1, height:1.5},scene);
+            var pino20 = new BABYLON.MeshBuilder.CreateCylinder("pino20",{diameter:1, height:1.5},scene);
+
+        }
+        
         window.initFunction = async function() {               
             var asyncEngineCreation = async function() {
                 try {
@@ -244,6 +583,10 @@
         initFunction().then(() => {sceneToRender = scene        
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
+                    let catavento = scene.getMeshById("windmill");
+                    let catavento2 = scene.getMeshById("windmill2");
+                    catavento.addRotation(0,0,-0.015);
+                    catavento2.addRotation(0,0,-0.014);
                     sceneToRender.render();
                 }
             });
