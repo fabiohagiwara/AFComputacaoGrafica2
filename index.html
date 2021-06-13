@@ -47,19 +47,28 @@
         
         var createScene = function () {
         
-            // Low Poly Character with Blender Tutorial of Grant Abbitt: https://www.youtube.com/user/mediagabbitt
-            // Character animations by Mixamo: https://www.mixamo.com/
         
             engine.enableOfflineSupport = false;
         
             // Scene and Camera
             var scene = new BABYLON.Scene(engine);
         
-            var camera1 = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(0, 0, 0), scene);
+            var camera1 = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(0, 10, 0), scene);
             scene.activeCamera = camera1;
             scene.activeCamera.attachControl(canvas, true);
 
-            var t = new BABYLON.MeshBuilder.CreateBox("t",{width:2,height:2},scene);
+            //Criar background
+            var fundo = new BABYLON.MeshBuilder.CreateBox("fundo",{width:30,height:60,depth:0.2},scene);
+            var fundoMaterial = new BABYLON.StandardMaterial("fundoMat",scene);
+            fundoMaterial.diffuseTexture = new BABYLON.Texture("textures/wood.jpg",scene);
+            fundo.material = fundoMaterial;
+            fundo.physicsImpostor = new BABYLON.PhysicsImpostor(fundo, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
         
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -85,14 +94,139 @@
             instructions.text = "Fábio Kenji Hagiwara 180106\nRenê Nascimento Corrêa 188086";
             instructions.color = "white";
             instructions.fontSize = 16;
-            instructions.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
-            instructions.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+            instructions.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+            instructions.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
             advancedTexture.addControl(instructions);
+
+            //ativa físicas
+            scene.enablePhysics();
+
+            spawnPlataformas();
+            spawnDominos();
+            spawnBolinhas();
         
             return scene;
         }
 
-        
+        const spawnDominos = function(){
+
+            var d1t1 = new BABYLON.MeshBuilder.CreateBox("d1t1",{height:6,width:0.2,depth:1.5},scene);
+            d1t1.position.x = 5;
+            d1t1.position.y = 24.1;
+            d1t1.position.z = 1;
+            d1t1.physicsImpostor = new BABYLON.PhysicsImpostor(d1t1, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:15,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var d1t2 = new BABYLON.MeshBuilder.CreateBox("d1t2",{height:4,width:0.2,depth:1.5},scene);
+            d1t2.position.x = 1;
+            d1t2.position.y = 23.1;
+            d1t2.position.z = 1;
+            d1t2.physicsImpostor = new BABYLON.PhysicsImpostor(d1t2, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:15,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var d1t3 = new BABYLON.MeshBuilder.CreateBox("d1t3",{height:2,width:0.2,depth:1.5},scene);
+            d1t3.position.x = -3;
+            d1t3.position.y = 22.1;
+            d1t3.position.z = 1;
+            d1t3.physicsImpostor = new BABYLON.PhysicsImpostor(d1t3, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:15,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+        }
+
+        const spawnPlataformas = function(){
+
+            var chao1 = new BABYLON.MeshBuilder.CreateBox("chao1",{height:0.2,width:7,depth:1.5},scene);
+            chao1.position.x = 11.5;
+            chao1.position.y = 25;
+            chao1.position.z =1;
+            chao1.rotation.z = 0.2;
+            chao1.physicsImpostor = new BABYLON.PhysicsImpostor(chao1, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var chao2 = new BABYLON.MeshBuilder.CreateBox("chao2",{height:0.2,width:13,depth:1.5},scene);
+            chao2.position.x = 1;
+            chao2.position.y = 21;
+            chao2.position.z = 1;
+            chao2.physicsImpostor = new BABYLON.PhysicsImpostor(chao2, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var chao3 = new BABYLON.MeshBuilder.CreateBox("chao3",{height:0.2,width:3,depth:1.5},scene);
+            chao3.position.x = 6.7;
+            chao3.position.y = 22;
+            chao3.position.z = 1;
+            chao3.rotation.z = -0.3;
+            chao3.physicsImpostor = new BABYLON.PhysicsImpostor(chao3, BABYLON
+            .PhysicsImpostor
+            .BoxImpostor,{
+                mass:0,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+        }
+
+        const spawnBolinhas = function(){
+
+            var bola1 = new BABYLON.MeshBuilder.CreateSphere("bola1",{},scene);
+            var bola1Textura = new BABYLON.StandardMaterial("redMat",scene);
+            bola1Textura.diffuseColor = BABYLON.Color3.Red();
+
+            bola1.material = bola1Textura;
+
+            bola1.position.x = 14;
+            bola1.position.y = 29;
+            bola1.position.z = 1;
+            
+            bola1.physicsImpostor = new BABYLON.PhysicsImpostor(bola1, BABYLON
+            .PhysicsImpostor
+            .SphereImpostor,{
+                mass:3,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+
+            var bola2 = new BABYLON.MeshBuilder.CreateSphere("bola2",{},scene);
+            var bola2Textura = new BABYLON.StandardMaterial("blueMat",scene);
+            bola2Textura.diffuseColor = BABYLON.Color3.Blue();
+
+            bola2.material = bola2Textura;
+
+            bola2.position.x = -5;
+            bola2.position.y = 21.7;
+            bola2.position.z = 1;
+            
+            bola2.physicsImpostor = new BABYLON.PhysicsImpostor(bola2, BABYLON
+            .PhysicsImpostor
+            .SphereImpostor,{
+                mass:3,
+                restitution:0.1,
+                friction: 0.1
+            },scene);
+            
+        }
 
         window.initFunction = async function() {               
             var asyncEngineCreation = async function() {
