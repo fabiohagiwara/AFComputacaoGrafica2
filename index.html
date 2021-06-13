@@ -162,6 +162,10 @@
                 restitution:0.1,
                 friction: 0.1
             },scene);
+
+            var textura = new BABYLON.StandardMaterial("texturaAgua",scene);
+            textura.diffuseTexture = new BABYLON.Texture("textures/agua.jpg",scene);
+            d1t1.material = d1t2.material = d1t3.material = textura;
         }
 
         const spawnPlataformas = function(){
@@ -385,16 +389,10 @@
             },scene);
             
             var bottom = new BABYLON.MeshBuilder.CreateBox("bottom",{height:0.2,width:1.2,depth:1},scene);
-            var hitbox = new BABYLON.MeshBuilder.CreateBox("bottom1",{height:0.21,width:1.3,depth:1},scene);
             bottom.position.x = -0.45;
             bottom.position.y = -25.6;
             bottom.position.z = 1;
             bottom.rotation.z = 0.1;
-            hitbox.position.x = bottom.position.x;
-            hitbox.position.y = bottom.position.y;
-            hitbox.position.z = 1;
-            hitbox.rotation.z = 0.1;
-            hitbox.isVisible = true;
             bottom.physicsImpostor = new BABYLON.PhysicsImpostor(bottom, BABYLON
             .PhysicsImpostor
             .BoxImpostor,{
@@ -402,8 +400,6 @@
                 restitution:0.1,
                 friction: 0.2
             },scene);
-
-            
 
             var final = new BABYLON.MeshBuilder.CreateBox("final",{height:0.2,width:4,depth:1},scene);
             final.position.x = -13;
@@ -416,15 +412,24 @@
                 restitution:0.1,
                 friction: 1
             },scene);
+
+            var textura2 = new BABYLON.StandardMaterial("texturaMetal",scene);
+            textura2.diffuseTexture = new BABYLON.Texture("textures/metal.jpg",scene);
+            chao1.material = chao2.material = chao3.material = chao4.material = chao5.material = chao6.material = chao7.material = chao8.material = chao9.material = chao10.material = chao11.material = chao12.material = chao13.material = final.material = final1.material = final2.material = buraco1.material = buraco2.material = bottom.material = textura2;
         }
 
         const spawnWindmill = function(){
+                        
+            var textura3 = new BABYLON.StandardMaterial("textura3",scene);
+            textura3.diffuseTexture = new BABYLON.Texture("textures/lava.png",scene);
+
             //#region windmill1
             var windmill = new BABYLON.Mesh("windmill",scene);
             
             var pa13 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1},scene);
             var pa2 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:2.3,depth:1},scene);
             var pa4 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1},scene);
+            pa13.material = pa2.material = pa4.material = textura3;
 
             pa2.position.y = 1.35;
             pa2.rotation.z = 1.55;
@@ -473,6 +478,7 @@
             var pa132 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1},scene);
             var pa22 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:2.3,depth:1},scene);
             var pa42 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1},scene);
+            pa132.material = pa22.material = pa42.material = textura3;
 
             pa22.position.y = 1.35;
             pa22.rotation.z = 1.55;
@@ -521,6 +527,7 @@
             var pa133 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1},scene);
             var pa23 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1},scene);
             var pa43 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1},scene);
+            pa133.material = pa23.material = pa43.material = textura3;
 
             pa23.position.y = 1.35;
             pa23.rotation.z = 1.55;
@@ -569,6 +576,7 @@
             var pa132 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:5,depth:1},scene);
             var pa22 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:2.3,depth:1},scene);
             var pa42 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:2.3,depth:1},scene);
+            pa132.material = pa22.material = pa42.material = textura3;
 
             pa22.position.y = 1.35;
             pa22.rotation.z = 1.55;
@@ -617,6 +625,7 @@
             var pa135 = new BABYLON.MeshBuilder.CreateBox("pa13",{height:0.2,width:7,depth:1},scene);
             var pa25 = new BABYLON.MeshBuilder.CreateBox("pa2",{height:0.2,width:3,depth:1},scene);
             var pa45 = new BABYLON.MeshBuilder.CreateBox("pa3",{height:0.2,width:3,depth:1},scene);
+            pa135.material = pa25.material = pa45.material = textura3;
 
             pa25.position.y = 1.35;
             pa25.rotation.z = 1.55;
@@ -658,6 +667,7 @@
             windmill5.position.y = 0;
             windmill5.position.z = 1;
             //#endregion
+
         }
 
         const spawnBolinhas = function(){
@@ -727,7 +737,7 @@
         
         const spawnBackground = function(){
             var fundo = new BABYLON.MeshBuilder.CreateBox("fundo",{width:30,height:60,depth:0.2},scene);
-            fundo.position.z = -0.1;
+            fundo.position.z = 0;
             var fundoMaterial = new BABYLON.StandardMaterial("fundoMat",scene);
             fundoMaterial.diffuseTexture = new BABYLON.Texture("textures/wood.jpg",scene);
             fundo.material = fundoMaterial;
@@ -736,7 +746,7 @@
             .BoxImpostor,{
                 mass:0,
                 restitution:0.1,
-                friction: 0.1
+                friction: 0
             },scene);
 
             var frente = new BABYLON.MeshBuilder.CreateBox("frente",{width:30,height:60,depth:0.2},scene);
@@ -749,7 +759,7 @@
             .BoxImpostor,{
                 mass:0,
                 restitution:0.1,
-                friction: 0.1
+                friction: 0
             },scene);
         }
 
