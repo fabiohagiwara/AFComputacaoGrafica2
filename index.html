@@ -127,7 +127,7 @@
 
         const spawnDominos = function(){
 
-            var d1t1 = new BABYLON.MeshBuilder.CreateBox("d1t1",{height:6,width:0.2,depth:1.5},scene);
+            var d1t1 = new BABYLON.MeshBuilder.CreateBox("d1t1",{height:6,width:0.2,depth:1},scene);
             d1t1.position.x = 5;
             d1t1.position.y = 24.1;
             d1t1.position.z = 1;
@@ -139,7 +139,7 @@
                 friction: 0.1
             },scene);
 
-            var d1t2 = new BABYLON.MeshBuilder.CreateBox("d1t2",{height:4,width:0.2,depth:1.5},scene);
+            var d1t2 = new BABYLON.MeshBuilder.CreateBox("d1t2",{height:4,width:0.2,depth:1},scene);
             d1t2.position.x = 1;
             d1t2.position.y = 23.1;
             d1t2.position.z = 1;
@@ -151,7 +151,7 @@
                 friction: 0.1
             },scene);
 
-            var d1t3 = new BABYLON.MeshBuilder.CreateBox("d1t3",{height:2,width:0.2,depth:1.5},scene);
+            var d1t3 = new BABYLON.MeshBuilder.CreateBox("d1t3",{height:2,width:0.2,depth:1},scene);
             d1t3.position.x = -3;
             d1t3.position.y = 22.1;
             d1t3.position.z = 1;
@@ -737,7 +737,7 @@
         
         const spawnBackground = function(){
             var fundo = new BABYLON.MeshBuilder.CreateBox("fundo",{width:30,height:60,depth:0.2},scene);
-            fundo.position.z = 0;
+            fundo.position.z = 0.2;
             var fundoMaterial = new BABYLON.StandardMaterial("fundoMat",scene);
             fundoMaterial.diffuseTexture = new BABYLON.Texture("textures/wood.jpg",scene);
             fundo.material = fundoMaterial;
@@ -750,7 +750,7 @@
             },scene);
 
             var frente = new BABYLON.MeshBuilder.CreateBox("frente",{width:30,height:60,depth:0.2},scene);
-            frente.position.z = 2;
+            frente.position.z = 1.8;
             var frenteMaterial = new BABYLON.StandardMaterial("frenteMat",scene);
             frenteMaterial.alpha = 0;
             frente.material = frenteMaterial;
